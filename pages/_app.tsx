@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 
-function FormApp({ Component, pageProps }: AppProps) {
+function YoutubeApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
 }
 
-export default FormApp
+export default YoutubeApp

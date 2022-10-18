@@ -26,7 +26,7 @@ export default class UiDialog extends React.Component<DialogProperties, DialogSt
     }
 
     componentDidMount() {
-        axios.get(`/api/forms?token=${this.props.token}`).then(response => this.setState({
+        axios.get(`/api/items?token=${this.props.token}`).then(response => this.setState({
             items: response.data.items,
             isLoading: false
         }));
@@ -53,7 +53,7 @@ export default class UiDialog extends React.Component<DialogProperties, DialogSt
                 </Toolbar>
             </AppBar>
             <DialogContent sx={{height: '100%'}}>
-                {isLoading ? <Fade
+                {isLoading && <Fade
                     in={isLoading}
                     style={{
                         zIndex: 9999999,
@@ -61,7 +61,8 @@ export default class UiDialog extends React.Component<DialogProperties, DialogSt
                     }}
                     unmountOnExit>
                     <CircularProgress/>
-                </Fade> : <List>
+                </Fade>}
+                <List>
                     {items && items.map((item, index) => {
                             return (
                                 <ListItem sx={{width: 'auto', display: 'inline-block'}} key={item.title}>
@@ -76,7 +77,7 @@ export default class UiDialog extends React.Component<DialogProperties, DialogSt
                             )
                         }
                     )}
-                </List>}
+                </List>
             </DialogContent>
         </Dialog>);
     }
