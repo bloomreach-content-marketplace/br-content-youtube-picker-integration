@@ -13,7 +13,7 @@ const Dialog: NextPage = () => {
             setComponent(<CmsDialog ui={ui}/>)
         });
     } catch (e: any) {
-        console.error(e.message)
+        console.warn(e.message)
     }
 
     return (

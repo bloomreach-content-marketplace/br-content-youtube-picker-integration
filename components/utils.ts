@@ -19,7 +19,10 @@ export const userLocale =
 
 
 export interface UiConfig {
-    token: string
+    apiKey: string
+    channelId?: string
+    property?: string
+    type?: 'channel' | 'playlist' | 'video'
 }
 
 export const itemData: any[] =

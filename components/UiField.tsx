@@ -1,20 +1,19 @@
 import React from "react";
-import {Button, Chip, Grid} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
-import DynamicFormIcon from '@mui/icons-material/DynamicForm';
 
 
 interface FieldState {
-    items: Array<any>
+    item: any
     editMode: boolean
 }
 
 interface FieldProperties {
-    onChange: (items: Array<any>) => void
-    onOpenDialog: (items: Array<any>) => void
+    onChange: (item: any) => void
+    onOpenDialog: (item: any) => void
     editMode: boolean
-    items: Array<any>
+    item: any
 }
 
 export default class UiField extends React.Component<FieldProperties, FieldState> {
@@ -23,14 +22,14 @@ export default class UiField extends React.Component<FieldProperties, FieldState
         super(props);
 
         this.state = {
-            items: this.props.items,
+            item: this.props.item,
             editMode: props.editMode,
         }
     }
 
 
     render() {
-        const {editMode, items} = this.state;
+        const {editMode, item} = this.state;
         return (
             <>
                 <Grid container sx={{minWidth: '375px'}} spacing={1}>
@@ -41,30 +40,25 @@ export default class UiField extends React.Component<FieldProperties, FieldState
                                     <Button size={"small"} sx={{display: editMode ? 'block' : 'none'}}
                                             variant="outlined"
                                             onClick={() => {
-                                                this.props.onOpenDialog(items)
+                                                this.props.onOpenDialog(item)
                                             }}>Select</Button>
+
+                                </ListItem>
+                                <ListItem sx={{paddingLeft: 0}}>
+                                    <Button size={"small"} sx={{display: editMode ? 'block' : 'none'}}
+                                            variant="outlined"
+                                            onClick={() => {
+                                                this.props.onChange('')
+                                            }}>Clear</Button>
                                 </ListItem>
                             </List>
                         </Grid>}
                     <Grid item xs={8} sx={{paddingLeft: 0}}>
-                        <List sx={{height: '100%', paddingLeft: 0}} row={true}>
-                            {items.map((item: any, index: number) => (
-                                <ListItem key={index} sx={{height: '100%', paddingLeft: 0}}>
-                                    <Grid item sx={{paddingTop: 0}}>
-                                        <Chip key={index}
-                                              disabled={!editMode}
-                                              size={'medium'}
-                                              variant={"outlined"}
-                                              icon={<DynamicFormIcon/>}
-                                              label={item.content.title}
-                                              onDelete={() => this.setState({items: []}, () => this.props.onChange([]))}
-                                        />
-                                    </Grid>
-                                </ListItem>
-
-                            ))}
-                        </List>
-
+                        {(item && (typeof item === 'string' || item instanceof String)) &&
+                            <iframe src={`https://www.youtube.com/embed/${item}`}
+                                    sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation allow-presentation"
+                                    style={{border: 'none'}}
+                                    allowFullScreen></iframe> }
                     </Grid>
                 </Grid>
             </>);

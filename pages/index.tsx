@@ -8,14 +8,13 @@ const Field: NextPage = () => {
 
     const [component, setComponent] = useState(<CircularProgress/>)
 
-
     useEffect(() => {
         try {
             UiExtension.register().then(ui => {
                 setComponent(<CmsField ui={ui}/>);
             });
         } catch (e: any) {
-            console.error(e.message)
+            console.warn(e.message)
         }
     }, [])
 
